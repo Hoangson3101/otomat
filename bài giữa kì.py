@@ -1,12 +1,11 @@
-NO_OF_CHARS = 256
+CHARS = 256
 
 def getNextState(pat, M, state, x):
 
 	if state < M and x == ord(pat[state]):
 		return state+1
 
-	i=0
-	
+	i=0	
 	for x in range(state,0,-1):
 		if ord(pat[x-1]) == x:
 			while(i<x-1):
@@ -17,23 +16,18 @@ def getNextState(pat, M, state, x):
 				return x
 	return 0
 
-def computeTF(pat, M):
-	
-	global NO_OF_CHARS
-
-	TF = [[0 for i in range(NO_OF_CHARS)]\
+def computeTF(pat, M):	
+	global CHARS
+	TF = [[0 for i in range(CHARS)]\
 		for _ in range(M+1)]
-
 	for state in range(M+1):
-		for x in range(NO_OF_CHARS):
+		for x in range(CHARS):
 			z = getNextState(pat, M, state, x)
 			TF[state][x] = z
-
 	return TF
 
-def search(pat, txt):
-	
-	global NO_OF_CHARS
+def search(pat, txt):	
+	global CHARS
 	M = len(pat)
 	N = len(txt)
 	TF = computeTF(pat, M)
